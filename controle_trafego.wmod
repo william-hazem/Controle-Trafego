@@ -65,6 +65,12 @@
 <SimpleIdentifier Name="semaforos"/>
 </RangeList>
 </EventDecl>
+<EventDecl Kind="CONTROLLABLE" Name="tempOpen">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+<EventDecl Kind="CONTROLLABLE" Name="tempOpenP"/>
 </EventDeclList>
 <ComponentList>
 <ForeachComponent Name="V">
@@ -89,7 +95,7 @@
 <SimpleIdentifier Name=":accepting"/>
 </EventList>
 <PointGeometry>
-<Point X="368" Y="192"/>
+<Point X="416" Y="192"/>
 </PointGeometry>
 <LabelGeometry Anchor="NW">
 <Point X="0" Y="10"/>
@@ -97,7 +103,7 @@
 </SimpleNode>
 <SimpleNode Name="Y">
 <PointGeometry>
-<Point X="480" Y="192"/>
+<Point X="656" Y="192"/>
 </PointGeometry>
 <LabelGeometry Anchor="NW">
 <Point X="0" Y="10"/>
@@ -105,7 +111,7 @@
 </SimpleNode>
 <SimpleNode Name="S0">
 <PointGeometry>
-<Point X="368" Y="288"/>
+<Point X="416" Y="384"/>
 </PointGeometry>
 <LabelGeometry Anchor="NW">
 <Point X="0" Y="10"/>
@@ -113,28 +119,28 @@
 </SimpleNode>
 </NodeList>
 <EdgeList>
-<Edge Source="R" Target="G">
-<LabelBlock>
-<IndexedIdentifier Name="open">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<LabelGeometry Anchor="NW">
-<Point X="-14" Y="7"/>
-</LabelGeometry>
-</LabelBlock>
-<SplineGeometry>
-<Point X="310" Y="204"/>
-</SplineGeometry>
-</Edge>
 <Edge Source="G" Target="Y">
 <LabelBlock>
 <IndexedIdentifier Name="warn">
 <SimpleIdentifier Name="V"/>
 </IndexedIdentifier>
 </LabelBlock>
-<SplineGeometry>
-<Point X="425" Y="207"/>
-</SplineGeometry>
+<StartPointGeometry>
+<Point X="416" Y="192"/>
+</StartPointGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="==" Text="contTempo[V] == 0">
+<IndexedIdentifier Name="contTempo">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="20"/>
+</LabelGeometry>
+</GuardActionBlock>
 </Edge>
 <Edge Source="Y" Target="R">
 <LabelBlock>
@@ -146,7 +152,7 @@
 </LabelGeometry>
 </LabelBlock>
 <SplineGeometry>
-<Point X="368" Y="131"/>
+<Point X="416" Y="2"/>
 </SplineGeometry>
 </Edge>
 <Edge Source="R" Target="R">
@@ -185,8 +191,21 @@
 </LabelGeometry>
 </LabelBlock>
 <SplineGeometry>
-<Point X="280" Y="275"/>
+<Point X="301" Y="340"/>
 </SplineGeometry>
+<GuardActionBlock>
+<Actions>
+<BinaryExpression Operator="=" Text="contTempo[V] = 3">
+<IndexedIdentifier Name="contTempo">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="3"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="20"/>
+</LabelGeometry>
+</GuardActionBlock>
 </Edge>
 <Edge Source="S0" Target="G">
 <LabelBlock>
@@ -195,9 +214,131 @@
 </IndexedIdentifier>
 </LabelBlock>
 </Edge>
+<Edge Source="R" Target="G">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-22" Y="4"/>
+</LabelGeometry>
+</LabelBlock>
+<StartPointGeometry>
+<Point X="256" Y="192"/>
+</StartPointGeometry>
+<SplineGeometry>
+<Point X="349" Y="133"/>
+</SplineGeometry>
+<EndPointGeometry>
+<Point X="416" Y="192"/>
+</EndPointGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&lt;" Text="contCarro[V]  &lt; 5">
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="5"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="=" Text="contTempo[V] = 1">
+<IndexedIdentifier Name="contTempo">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="-44" Y="-29"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="R" Target="G">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-25" Y="6"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="347" Y="242"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;" Text="contCarro[V] &gt;5">
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="5"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="=" Text="contTempo[V]  = 2">
+<IndexedIdentifier Name="contTempo">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="2"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="-49" Y="-32"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="G" Target="G">
+<LabelBlock>
+<IndexedIdentifier Name="tempOpen">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+</LabelBlock>
+<SplineGeometry>
+<Point X="458" Y="234"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;" Text="contTempo[V] &gt; 0">
+<IndexedIdentifier Name="contTempo">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="-=" Text="contTempo[V] -=1">
+<IndexedIdentifier Name="contTempo">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="3" Y="30"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
 </EdgeList>
 </Graph>
 </SimpleComponent>
+<VariableComponent>
+<IndexedIdentifier Name="contTempo">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<VariableRange><BinaryExpression Operator=".." Text="0.. 3">
+<IntConstant Value="0"/>
+<IntConstant Value="3"/>
+</BinaryExpression>
+</VariableRange>
+<VariableInitial><BinaryExpression Operator="==">
+<IndexedIdentifier Name="contTempo">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</VariableInitial>
+</VariableComponent>
 <SimpleComponent Kind="PLANT">
 <IndexedIdentifier Name="passagemCarros">
 <SimpleIdentifier Name="V"/>
@@ -482,180 +623,6 @@
 </BinaryExpression>
 </VariableInitial>
 </VariableComponent>
-<SimpleComponent Kind="PLANT">
-<IndexedIdentifier Name="passagemEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<Graph>
-<NodeList>
-<SimpleNode Initial="true" Name="temEmergencia">
-<PointGeometry>
-<Point X="320" Y="224"/>
-</PointGeometry>
-<LabelGeometry Anchor="NW">
-<Point X="0" Y="10"/>
-</LabelGeometry>
-</SimpleNode>
-<SimpleNode Name="passouEmergencia">
-<PointGeometry>
-<Point X="576" Y="224"/>
-</PointGeometry>
-<LabelGeometry Anchor="NW">
-<Point X="121" Y="5"/>
-</LabelGeometry>
-</SimpleNode>
-<SimpleNode Name="S15">
-<PointGeometry>
-<Point X="432" Y="96"/>
-</PointGeometry>
-<LabelGeometry Anchor="NW">
-<Point X="0" Y="10"/>
-</LabelGeometry>
-</SimpleNode>
-</NodeList>
-<EdgeList>
-<Edge Source="temEmergencia" Target="S15">
-<LabelBlock>
-<IndexedIdentifier Name="viaEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<LabelGeometry Anchor="NW">
-<Point X="-36" Y="14"/>
-</LabelGeometry>
-</LabelBlock>
-<SplineGeometry>
-<Point X="352" Y="138"/>
-</SplineGeometry>
-<EndPointGeometry>
-<Point X="432" Y="96"/>
-</EndPointGeometry>
-<GuardActionBlock>
-<Guards>
-<BinaryExpression Operator="&gt;=" Text="contEmergencia[V] &gt;= 1">
-<IndexedIdentifier Name="contEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<IntConstant Value="1"/>
-</BinaryExpression>
-</Guards>
-<LabelGeometry Anchor="NW">
-<Point X="-150" Y="-64"/>
-</LabelGeometry>
-</GuardActionBlock>
-</Edge>
-<Edge Source="temEmergencia" Target="temEmergencia">
-<LabelBlock>
-<IndexedIdentifier Name="chegaEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<LabelGeometry Anchor="NW">
-<Point X="-43" Y="14"/>
-</LabelGeometry>
-</LabelBlock>
-<SplineGeometry>
-<Point X="264" Y="252"/>
-</SplineGeometry>
-<GuardActionBlock>
-<Guards>
-<BinaryExpression Operator="&gt;=" Text="contEmergencia[V] &gt;= 0">
-<IndexedIdentifier Name="contEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<IntConstant Value="0"/>
-</BinaryExpression>
-</Guards>
-<Actions>
-<BinaryExpression Operator="+=" Text="contEmergencia[V] += 1">
-<IndexedIdentifier Name="contEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<IntConstant Value="1"/>
-</BinaryExpression>
-</Actions>
-<LabelGeometry Anchor="NW">
-<Point X="-89" Y="-86"/>
-</LabelGeometry>
-</GuardActionBlock>
-</Edge>
-<Edge Source="passouEmergencia" Target="temEmergencia">
-<LabelBlock>
-<IndexedIdentifier Name="close">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<LabelGeometry Anchor="NW">
-<Point X="-1" Y="7"/>
-</LabelGeometry>
-</LabelBlock>
-<SplineGeometry>
-<Point X="454" Y="280"/>
-</SplineGeometry>
-<GuardActionBlock>
-<Guards>
-<BinaryExpression Operator="==" Text="contEmergencia[V] ==0">
-<IndexedIdentifier Name="contEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<IntConstant Value="0"/>
-</BinaryExpression>
-</Guards>
-<LabelGeometry Anchor="NW">
-<Point X="0" Y="20"/>
-</LabelGeometry>
-</GuardActionBlock>
-</Edge>
-<Edge Source="passouEmergencia" Target="passouEmergencia">
-<LabelBlock>
-<IndexedIdentifier Name="saiEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<LabelGeometry Anchor="NW">
-<Point X="3" Y="24"/>
-</LabelGeometry>
-</LabelBlock>
-<SplineGeometry>
-<Point X="618" Y="183"/>
-</SplineGeometry>
-<GuardActionBlock>
-<Guards>
-<BinaryExpression Operator="&gt;=" Text="contEmergencia[V] &gt;= 0">
-<IndexedIdentifier Name="contEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<IntConstant Value="0"/>
-</BinaryExpression>
-</Guards>
-<Actions>
-<BinaryExpression Operator="-=" Text="contEmergencia[V] -= 1">
-<IndexedIdentifier Name="contEmergencia">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<IntConstant Value="1"/>
-</BinaryExpression>
-</Actions>
-<LabelGeometry Anchor="NW">
-<Point X="14" Y="-7"/>
-</LabelGeometry>
-</GuardActionBlock>
-</Edge>
-<Edge Source="S15" Target="passouEmergencia">
-<LabelBlock>
-<IndexedIdentifier Name="open">
-<SimpleIdentifier Name="V"/>
-</IndexedIdentifier>
-<LabelGeometry Anchor="NW">
-<Point X="14" Y="-21"/>
-</LabelGeometry>
-</LabelBlock>
-<StartPointGeometry>
-<Point X="432" Y="96"/>
-</StartPointGeometry>
-<SplineGeometry>
-<Point X="536" Y="132"/>
-</SplineGeometry>
-</Edge>
-</EdgeList>
-</Graph>
-</SimpleComponent>
 <VariableComponent>
 <IndexedIdentifier Name="contEmergencia">
 <SimpleIdentifier Name="V"/>
@@ -827,109 +794,6 @@
 </EdgeList>
 </Graph>
 </SimpleComponent>
-<SimpleComponent Kind="PLANT" Name="aleatorio">
-<Graph>
-<NodeList>
-<SimpleNode Initial="true" Name="S0">
-<PointGeometry>
-<Point X="224" Y="160"/>
-</PointGeometry>
-<LabelGeometry Anchor="NW">
-<Point X="0" Y="10"/>
-</LabelGeometry>
-</SimpleNode>
-<SimpleNode Name="S1">
-<EventList>
-<SimpleIdentifier Name=":accepting"/>
-</EventList>
-<PointGeometry>
-<Point X="416" Y="160"/>
-</PointGeometry>
-<LabelGeometry Anchor="NW">
-<Point X="0" Y="10"/>
-</LabelGeometry>
-</SimpleNode>
-</NodeList>
-<EdgeList>
-<Edge Source="S0" Target="S1">
-<LabelBlock>
-<SimpleIdentifier Name="verde"/>
-<LabelGeometry Anchor="NW">
-<Point X="-1" Y="-25"/>
-</LabelGeometry>
-</LabelBlock>
-<SplineGeometry>
-<Point X="320" Y="144"/>
-</SplineGeometry>
-<GuardActionBlock>
-<Guards>
-<BinaryExpression Operator="==">
-<SimpleIdentifier Name="cont"/>
-<IntConstant Value="3"/>
-</BinaryExpression>
-</Guards>
-<Actions>
-<BinaryExpression Operator="=" Text="cont = 0">
-<SimpleIdentifier Name="cont"/>
-<IntConstant Value="0"/>
-</BinaryExpression>
-</Actions>
-<LabelGeometry Anchor="NW">
-<Point X="-14" Y="16"/>
-</LabelGeometry>
-</GuardActionBlock>
-</Edge>
-<Edge Source="S0" Target="S0">
-<LabelBlock>
-<SimpleIdentifier Name="vermelho"/>
-<LabelGeometry Anchor="NW">
-<Point X="-50" Y="-24"/>
-</LabelGeometry>
-</LabelBlock>
-<SplineGeometry>
-<Point X="244" Y="113"/>
-</SplineGeometry>
-<GuardActionBlock>
-<Guards>
-<BinaryExpression Operator="&lt;" Text="cont &lt; 3">
-<SimpleIdentifier Name="cont"/>
-<IntConstant Value="3"/>
-</BinaryExpression>
-</Guards>
-<Actions>
-<BinaryExpression Operator="+=" Text="cont += 1">
-<SimpleIdentifier Name="cont"/>
-<IntConstant Value="1"/>
-</BinaryExpression>
-</Actions>
-<LabelGeometry Anchor="NW">
-<Point X="31" Y="-17"/>
-</LabelGeometry>
-</GuardActionBlock>
-</Edge>
-<Edge Source="S1" Target="S0">
-<LabelBlock>
-<SimpleIdentifier Name="vermelho"/>
-</LabelBlock>
-<SplineGeometry>
-<Point X="319" Y="238"/>
-</SplineGeometry>
-</Edge>
-</EdgeList>
-</Graph>
-</SimpleComponent>
-<VariableComponent Name="cont">
-<VariableRange><BinaryExpression Operator="..">
-<IntConstant Value="0"/>
-<IntConstant Value="3"/>
-</BinaryExpression>
-</VariableRange>
-<VariableInitial><BinaryExpression Operator="==" Text="cont == 0">
-<SimpleIdentifier Name="cont"/>
-<IntConstant Value="0"/>
-</BinaryExpression>
-</VariableInitial>
-</VariableComponent>
 <SimpleComponent Kind="PLANT" Name="semaforoPedestre">
 <Graph>
 <NodeList>
@@ -983,6 +847,17 @@
 <EndPointGeometry>
 <Point X="352" Y="144"/>
 </EndPointGeometry>
+<GuardActionBlock>
+<Actions>
+<BinaryExpression Operator="=" Text="contTempoP = 1">
+<SimpleIdentifier Name="contTempoP"/>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="-55" Y="-45"/>
+</LabelGeometry>
+</GuardActionBlock>
 </Edge>
 <Edge Source="PWarn" Target="PClosed">
 <LabelBlock>
@@ -1019,6 +894,36 @@
 <SplineGeometry>
 <Point X="409" Y="227"/>
 </SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="==" Text="contTempoP == 0">
+<SimpleIdentifier Name="contTempoP"/>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="20"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="POpen" Target="POpen">
+<LabelBlock>
+<SimpleIdentifier Name="tempOpenP"/>
+<LabelGeometry Anchor="NW">
+<Point X="5" Y="-4"/>
+</LabelGeometry>
+</LabelBlock>
+<GuardActionBlock>
+<Actions>
+<BinaryExpression Operator="-=" Text="contTempoP -= 1">
+<SimpleIdentifier Name="contTempoP"/>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="20"/>
+</LabelGeometry>
+</GuardActionBlock>
 </Edge>
 </EdgeList>
 </Graph>
@@ -1542,5 +1447,17 @@
 </EdgeList>
 </Graph>
 </SimpleComponent>
+<VariableComponent Name="contTempoP">
+<VariableRange><BinaryExpression Operator="..">
+<IntConstant Value="0"/>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</VariableRange>
+<VariableInitial><BinaryExpression Operator="==" Text="contTempoP == 1">
+<SimpleIdentifier Name="contTempoP"/>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</VariableInitial>
+</VariableComponent>
 </ComponentList>
 </Module>
