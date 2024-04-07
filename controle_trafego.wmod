@@ -1,0 +1,1546 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Module xmlns="http://waters.sourceforge.net/xsd/module" xmlns:B="http://waters.sourceforge.net/xsd/base" Name="controle_trafego">
+<ConstantAliasList>
+<ConstantAlias Name="semaforos">
+<ConstantAliasExpression><EnumSetExpression>
+<SimpleIdentifier Name="V1"/>
+<SimpleIdentifier Name="V2"/>
+<SimpleIdentifier Name="V3"/>
+<SimpleIdentifier Name="V4"/>
+</EnumSetExpression>
+</ConstantAliasExpression>
+</ConstantAlias>
+</ConstantAliasList>
+<EventDeclList>
+<EventDecl Kind="CONTROLLABLE" Name="open">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+<EventDecl Kind="CONTROLLABLE" Name="close">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+<EventDecl Kind="CONTROLLABLE" Name="warn">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+<EventDecl Kind="PROPOSITION" Name=":accepting"/>
+<EventDecl Kind="PROPOSITION" Name=":forbidden"/>
+<EventDecl Kind="UNCONTROLLABLE" Name="vermelho"/>
+<EventDecl Kind="UNCONTROLLABLE" Name="verde"/>
+<EventDecl Kind="UNCONTROLLABLE" Name="btPressed"/>
+<EventDecl Kind="CONTROLLABLE" Name="closeP"/>
+<EventDecl Kind="CONTROLLABLE" Name="openP"/>
+<EventDecl Kind="CONTROLLABLE" Name="warnP"/>
+<EventDecl Kind="UNCONTROLLABLE" Name="empty">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+<EventDecl Kind="UNCONTROLLABLE" Name="viaEmergencia">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+<EventDecl Kind="UNCONTROLLABLE" Name="chegaCarro">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+<EventDecl Kind="UNCONTROLLABLE" Name="chegaEmergencia">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+<EventDecl Kind="UNCONTROLLABLE" Name="saiCarro">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+<EventDecl Kind="UNCONTROLLABLE" Name="saiEmergencia">
+<RangeList>
+<SimpleIdentifier Name="semaforos"/>
+</RangeList>
+</EventDecl>
+</EventDeclList>
+<ComponentList>
+<ForeachComponent Name="V">
+<SimpleIdentifier Name="semaforos"/>
+<ComponentList>
+<SimpleComponent Kind="PLANT">
+<IndexedIdentifier Name="semaforo">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="R">
+<PointGeometry>
+<Point X="256" Y="192"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="G">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="368" Y="192"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="Y">
+<PointGeometry>
+<Point X="480" Y="192"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S0">
+<PointGeometry>
+<Point X="368" Y="288"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="R" Target="G">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-14" Y="7"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="310" Y="204"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="G" Target="Y">
+<LabelBlock>
+<IndexedIdentifier Name="warn">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+</LabelBlock>
+<SplineGeometry>
+<Point X="425" Y="207"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="Y" Target="R">
+<LabelBlock>
+<IndexedIdentifier Name="close">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-22" Y="-25"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="368" Y="131"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="R" Target="R">
+<LabelBlock>
+<IndexedIdentifier Name="empty">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-38" Y="11"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="227" Y="207"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="==" Text="contCarro[V] == 0">
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<LabelGeometry Anchor="NW">
+<Point X="-106" Y="-12"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="R" Target="S0">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-87" Y="18"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="280" Y="275"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S0" Target="G">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+</LabelBlock>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<SimpleComponent Kind="PLANT">
+<IndexedIdentifier Name="passagemCarros">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="temCarro">
+<PointGeometry>
+<Point X="176" Y="144"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-21" Y="5"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="passouCarro">
+<PointGeometry>
+<Point X="432" Y="144"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-36" Y="4"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S15">
+<PointGeometry>
+<Point X="304" Y="96"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="temCarro" Target="passouCarro">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-21" Y="12"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="310" Y="26"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;=" Text="contCarro[V] &gt;= 1">
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Guards>
+<LabelGeometry Anchor="NW">
+<Point X="-95" Y="-30"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="temCarro" Target="temCarro">
+<LabelBlock>
+<IndexedIdentifier Name="chegaCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-38" Y="-30"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="116" Y="99"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;=" Text="contCarro[V] &gt;=0">
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="+=" Text="contCarro[V] += 1">
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="-89" Y="-74"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="passouCarro" Target="temCarro">
+<LabelBlock>
+<IndexedIdentifier Name="close">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-19" Y="12"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="306" Y="234"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="passouCarro" Target="passouCarro">
+<LabelBlock>
+<IndexedIdentifier Name="saiCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="9" Y="-7"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="483" Y="91"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;=" Text="contCarro[V] &gt;=1">
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="-=" Text="contCarro[V] -= 1">
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="-14" Y="-43"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="temCarro" Target="S15">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-25" Y="1"/>
+</LabelGeometry>
+</LabelBlock>
+<StartPointGeometry>
+<Point X="176" Y="144"/>
+</StartPointGeometry>
+<EndPointGeometry>
+<Point X="304" Y="96"/>
+</EndPointGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;=" Text="contEmergencia[V] &gt;= 1">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Guards>
+<LabelGeometry Anchor="NW">
+<Point X="-28" Y="16"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="temCarro" Target="temCarro">
+<LabelBlock>
+<IndexedIdentifier Name="chegaEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-43" Y="14"/>
+</LabelGeometry>
+</LabelBlock>
+<StartPointGeometry>
+<Point X="176" Y="144"/>
+</StartPointGeometry>
+<SplineGeometry>
+<Point X="120" Y="193"/>
+</SplineGeometry>
+<EndPointGeometry>
+<Point X="176" Y="144"/>
+</EndPointGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;=" Text="contEmergencia[V] &gt;= 0">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="+=" Text="contEmergencia[V] += 1">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="-147" Y="-16"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="passouCarro" Target="passouCarro">
+<LabelBlock>
+<IndexedIdentifier Name="saiEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-11" Y="29"/>
+</LabelGeometry>
+</LabelBlock>
+<StartPointGeometry>
+<Point X="432" Y="144"/>
+</StartPointGeometry>
+<SplineGeometry>
+<Point X="483" Y="195"/>
+</SplineGeometry>
+<EndPointGeometry>
+<Point X="432" Y="144"/>
+</EndPointGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;=" Text="contEmergencia[V] &gt;= 0">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="-=" Text="contEmergencia[V] -= 1">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="14" Y="-7"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="S15" Target="passouCarro">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="14" Y="-21"/>
+</LabelGeometry>
+</LabelBlock>
+<StartPointGeometry>
+<Point X="304" Y="96"/>
+</StartPointGeometry>
+<EndPointGeometry>
+<Point X="432" Y="144"/>
+</EndPointGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<VariableComponent>
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<VariableRange><BinaryExpression Operator="..">
+<IntConstant Value="0"/>
+<IntConstant Value="15"/>
+</BinaryExpression>
+</VariableRange>
+<VariableInitial><BinaryExpression Operator="==" Text="contCarro[V] == 0">
+<IndexedIdentifier Name="contCarro">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</VariableInitial>
+</VariableComponent>
+<SimpleComponent Kind="PLANT">
+<IndexedIdentifier Name="passagemEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="temEmergencia">
+<PointGeometry>
+<Point X="320" Y="224"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="passouEmergencia">
+<PointGeometry>
+<Point X="576" Y="224"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="121" Y="5"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S15">
+<PointGeometry>
+<Point X="432" Y="96"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="temEmergencia" Target="S15">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-36" Y="14"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="352" Y="138"/>
+</SplineGeometry>
+<EndPointGeometry>
+<Point X="432" Y="96"/>
+</EndPointGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;=" Text="contEmergencia[V] &gt;= 1">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Guards>
+<LabelGeometry Anchor="NW">
+<Point X="-150" Y="-64"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="temEmergencia" Target="temEmergencia">
+<LabelBlock>
+<IndexedIdentifier Name="chegaEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-43" Y="14"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="264" Y="252"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;=" Text="contEmergencia[V] &gt;= 0">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="+=" Text="contEmergencia[V] += 1">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="-89" Y="-86"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="passouEmergencia" Target="temEmergencia">
+<LabelBlock>
+<IndexedIdentifier Name="close">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-1" Y="7"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="454" Y="280"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="==" Text="contEmergencia[V] ==0">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="20"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="passouEmergencia" Target="passouEmergencia">
+<LabelBlock>
+<IndexedIdentifier Name="saiEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="3" Y="24"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="618" Y="183"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&gt;=" Text="contEmergencia[V] &gt;= 0">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="-=" Text="contEmergencia[V] -= 1">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="14" Y="-7"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="S15" Target="passouEmergencia">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="14" Y="-21"/>
+</LabelGeometry>
+</LabelBlock>
+<StartPointGeometry>
+<Point X="432" Y="96"/>
+</StartPointGeometry>
+<SplineGeometry>
+<Point X="536" Y="132"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<VariableComponent>
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<VariableRange><BinaryExpression Operator="..">
+<IntConstant Value="0"/>
+<IntConstant Value="15"/>
+</BinaryExpression>
+</VariableRange>
+<VariableInitial><BinaryExpression Operator="==" Text="contEmergencia[V] == 0">
+<IndexedIdentifier Name="contEmergencia">
+<SimpleIdentifier Name="V"/>
+</IndexedIdentifier>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</VariableInitial>
+</VariableComponent>
+</ComponentList>
+</ForeachComponent>
+<SimpleComponent Kind="SPEC" Name="controle">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="S0">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="-32" Y="96"/>
+</PointGeometry>
+<InitialArrowGeometry>
+<Point X="0" Y="-33"/>
+</InitialArrowGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S2">
+<PointGeometry>
+<Point X="-129" Y="-1"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-16" Y="15"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S3">
+<PointGeometry>
+<Point X="65" Y="3"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S5">
+<PointGeometry>
+<Point X="63" Y="190"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S6">
+<PointGeometry>
+<Point X="-126" Y="195"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="S0" Target="S2">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V1"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-53" Y="-8"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="-91" Y="64"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S0" Target="S3">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V2"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="19" Y="-16"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="36" Y="56"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S0" Target="S5">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V3"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="9" Y="-13"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="24" Y="137"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S0" Target="S6">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V4"/>
+</IndexedIdentifier>
+</LabelBlock>
+<SplineGeometry>
+<Point X="-73" Y="154"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S2" Target="S0">
+<LabelBlock>
+<IndexedIdentifier Name="close">
+<SimpleIdentifier Name="V1"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-14" Y="-27"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="-74" Y="38"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S3" Target="S0">
+<LabelBlock>
+<IndexedIdentifier Name="close">
+<SimpleIdentifier Name="V2"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-32" Y="-42"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="10" Y="39"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S5" Target="S0">
+<LabelBlock>
+<IndexedIdentifier Name="close">
+<SimpleIdentifier Name="V3"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-10" Y="15"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="9" Y="153"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S6" Target="S0">
+<LabelBlock>
+<IndexedIdentifier Name="close">
+<SimpleIdentifier Name="V4"/>
+</IndexedIdentifier>
+</LabelBlock>
+<SplineGeometry>
+<Point X="-89" Y="139"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<SimpleComponent Kind="PLANT" Name="aleatorio">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="S0">
+<PointGeometry>
+<Point X="224" Y="160"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S1">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="416" Y="160"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="S0" Target="S1">
+<LabelBlock>
+<SimpleIdentifier Name="verde"/>
+<LabelGeometry Anchor="NW">
+<Point X="-1" Y="-25"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="320" Y="144"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="==">
+<SimpleIdentifier Name="cont"/>
+<IntConstant Value="3"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="=" Text="cont = 0">
+<SimpleIdentifier Name="cont"/>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="-14" Y="16"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="S0" Target="S0">
+<LabelBlock>
+<SimpleIdentifier Name="vermelho"/>
+<LabelGeometry Anchor="NW">
+<Point X="-50" Y="-24"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="244" Y="113"/>
+</SplineGeometry>
+<GuardActionBlock>
+<Guards>
+<BinaryExpression Operator="&lt;" Text="cont &lt; 3">
+<SimpleIdentifier Name="cont"/>
+<IntConstant Value="3"/>
+</BinaryExpression>
+</Guards>
+<Actions>
+<BinaryExpression Operator="+=" Text="cont += 1">
+<SimpleIdentifier Name="cont"/>
+<IntConstant Value="1"/>
+</BinaryExpression>
+</Actions>
+<LabelGeometry Anchor="NW">
+<Point X="31" Y="-17"/>
+</LabelGeometry>
+</GuardActionBlock>
+</Edge>
+<Edge Source="S1" Target="S0">
+<LabelBlock>
+<SimpleIdentifier Name="vermelho"/>
+</LabelBlock>
+<SplineGeometry>
+<Point X="319" Y="238"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<VariableComponent Name="cont">
+<VariableRange><BinaryExpression Operator="..">
+<IntConstant Value="0"/>
+<IntConstant Value="3"/>
+</BinaryExpression>
+</VariableRange>
+<VariableInitial><BinaryExpression Operator="==" Text="cont == 0">
+<SimpleIdentifier Name="cont"/>
+<IntConstant Value="0"/>
+</BinaryExpression>
+</VariableInitial>
+</VariableComponent>
+<SimpleComponent Kind="PLANT" Name="semaforoPedestre">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="PClosed">
+<EventList>
+<SimpleIdentifier Name=":accepting"/>
+</EventList>
+<PointGeometry>
+<Point X="256" Y="192"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-38" Y="11"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="POpen">
+<PointGeometry>
+<Point X="448" Y="192"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="13" Y="-3"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="PReq">
+<PointGeometry>
+<Point X="352" Y="144"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-12" Y="9"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="PWarn">
+<PointGeometry>
+<Point X="352" Y="240"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-14" Y="11"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="PClosed" Target="PReq">
+<LabelBlock>
+<SimpleIdentifier Name="btPressed"/>
+<LabelGeometry Anchor="NW">
+<Point X="-32" Y="-25"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="299" Y="158"/>
+</SplineGeometry>
+<EndPointGeometry>
+<Point X="352" Y="144"/>
+</EndPointGeometry>
+</Edge>
+<Edge Source="PWarn" Target="PClosed">
+<LabelBlock>
+<SimpleIdentifier Name="closeP"/>
+<LabelGeometry Anchor="NW">
+<Point X="-24" Y="6"/>
+</LabelGeometry>
+</LabelBlock>
+<StartPointGeometry>
+<Point X="352" Y="240"/>
+</StartPointGeometry>
+<SplineGeometry>
+<Point X="310" Y="231"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="PReq" Target="POpen">
+<LabelBlock>
+<SimpleIdentifier Name="openP"/>
+<LabelGeometry Anchor="NW">
+<Point X="-7" Y="-20"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="410" Y="157"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="POpen" Target="PWarn">
+<LabelBlock>
+<SimpleIdentifier Name="warnP"/>
+<LabelGeometry Anchor="NW">
+<Point X="4" Y="2"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="409" Y="227"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<SimpleComponent Kind="SPEC" Name="controlePedestre">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="S0">
+<PointGeometry>
+<Point X="304" Y="256"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S1">
+<PointGeometry>
+<Point X="480" Y="256"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S2">
+<PointGeometry>
+<Point X="480" Y="384"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S4">
+<PointGeometry>
+<Point X="480" Y="464"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S3">
+<PointGeometry>
+<Point X="560" Y="384"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="S0" Target="S1">
+<LabelBlock>
+<SimpleIdentifier Name="open"/>
+</LabelBlock>
+<SplineGeometry>
+<Point X="392" Y="240"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S0" Target="S2">
+<LabelBlock>
+<SimpleIdentifier Name="btPressed"/>
+</LabelBlock>
+</Edge>
+<Edge Source="S1" Target="S3">
+<LabelBlock>
+<SimpleIdentifier Name="btPressed"/>
+</LabelBlock>
+<SplineGeometry>
+<Point X="550" Y="300"/>
+</SplineGeometry>
+<EndPointGeometry>
+<Point X="560" Y="384"/>
+</EndPointGeometry>
+</Edge>
+<Edge Source="S2" Target="S4">
+<LabelBlock>
+<SimpleIdentifier Name="openP"/>
+</LabelBlock>
+</Edge>
+<Edge Source="S4" Target="S0">
+<LabelBlock>
+<SimpleIdentifier Name="closeP"/>
+</LabelBlock>
+<SplineGeometry>
+<Point X="349" Y="412"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S1" Target="S0">
+<LabelBlock>
+<SimpleIdentifier Name="close"/>
+</LabelBlock>
+<SplineGeometry>
+<Point X="392" Y="272"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S3" Target="S2">
+<LabelBlock>
+<SimpleIdentifier Name="close"/>
+</LabelBlock>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<SimpleComponent Kind="SPEC" Name="controleAcionamento">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="V1">
+<PointGeometry>
+<Point X="368" Y="144"/>
+</PointGeometry>
+<InitialArrowGeometry>
+<Point X="-33" Y="0"/>
+</InitialArrowGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="-34" Y="-30"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S5">
+<PointGeometry>
+<Point X="368" Y="592"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="V2">
+<PointGeometry>
+<Point X="928" Y="144"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="7" Y="8"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="V3">
+<PointGeometry>
+<Point X="928" Y="592"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="V1" Target="V2">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V1"/>
+</IndexedIdentifier>
+<IndexedIdentifier Name="empty">
+<SimpleIdentifier Name="V1"/>
+</IndexedIdentifier>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V2"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-25" Y="-57"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="649" Y="129"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="V2" Target="V3">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V2"/>
+</IndexedIdentifier>
+<IndexedIdentifier Name="empty">
+<SimpleIdentifier Name="V2"/>
+</IndexedIdentifier>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V3"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="23" Y="-23"/>
+</LabelGeometry>
+</LabelBlock>
+<StartPointGeometry>
+<Point X="928" Y="144"/>
+</StartPointGeometry>
+<SplineGeometry>
+<Point X="944" Y="368"/>
+</SplineGeometry>
+<EndPointGeometry>
+<Point X="928" Y="592"/>
+</EndPointGeometry>
+</Edge>
+<Edge Source="V3" Target="S5">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V3"/>
+</IndexedIdentifier>
+<IndexedIdentifier Name="empty">
+<SimpleIdentifier Name="V3"/>
+</IndexedIdentifier>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V4"/>
+</IndexedIdentifier>
+</LabelBlock>
+<StartPointGeometry>
+<Point X="928" Y="592"/>
+</StartPointGeometry>
+<SplineGeometry>
+<Point X="648" Y="608"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S5" Target="V1">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V4"/>
+</IndexedIdentifier>
+<IndexedIdentifier Name="empty">
+<SimpleIdentifier Name="V4"/>
+</IndexedIdentifier>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V1"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-110" Y="-5"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="352" Y="368"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="V1" Target="V3">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V3"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="78" Y="36"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="658" Y="356"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S5" Target="V3">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V3"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-25" Y="-25"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="657" Y="562"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S5" Target="V2">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V2"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-98" Y="82"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="638" Y="356"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="V3" Target="V2">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V2"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-92" Y="-28"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="902" Y="374"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="V3" Target="V1">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V1"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-8" Y="60"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="638" Y="380"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="V2" Target="V1">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V1"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-25" Y="4"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="648" Y="160"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="V2" Target="S5">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V4"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="38" Y="-61"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="679" Y="381"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="V1" Target="S5">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V4"/>
+</IndexedIdentifier>
+</LabelBlock>
+<SplineGeometry>
+<Point X="384" Y="368"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+<SimpleComponent Kind="SPEC" Name="controleEmergencia">
+<Graph>
+<NodeList>
+<SimpleNode Initial="true" Name="S0">
+<PointGeometry>
+<Point X="912" Y="464"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S1">
+<PointGeometry>
+<Point X="912" Y="368"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S2">
+<PointGeometry>
+<Point X="768" Y="464"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S3">
+<PointGeometry>
+<Point X="1088" Y="464"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S4">
+<PointGeometry>
+<Point X="912" Y="592"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S5">
+<PointGeometry>
+<Point X="912" Y="256"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S6">
+<PointGeometry>
+<Point X="1200" Y="464"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S7">
+<PointGeometry>
+<Point X="912" Y="688"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+<SimpleNode Name="S8">
+<PointGeometry>
+<Point X="656" Y="464"/>
+</PointGeometry>
+<LabelGeometry Anchor="NW">
+<Point X="0" Y="10"/>
+</LabelGeometry>
+</SimpleNode>
+</NodeList>
+<EdgeList>
+<Edge Source="S0" Target="S2">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V4"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-36" Y="8"/>
+</LabelGeometry>
+</LabelBlock>
+</Edge>
+<Edge Source="S0" Target="S1">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V1"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="22" Y="-29"/>
+</LabelGeometry>
+</LabelBlock>
+</Edge>
+<Edge Source="S0" Target="S3">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V2"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-36" Y="3"/>
+</LabelGeometry>
+</LabelBlock>
+</Edge>
+<Edge Source="S0" Target="S4">
+<LabelBlock>
+<IndexedIdentifier Name="viaEmergencia">
+<SimpleIdentifier Name="V3"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-93" Y="7"/>
+</LabelGeometry>
+</LabelBlock>
+</Edge>
+<Edge Source="S1" Target="S5">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V1"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-76" Y="-29"/>
+</LabelGeometry>
+</LabelBlock>
+</Edge>
+<Edge Source="S6" Target="S0">
+<LabelBlock>
+<SimpleIdentifier Name="close"/>
+<LabelGeometry Anchor="NW">
+<Point X="-5" Y="-22"/>
+</LabelGeometry>
+</LabelBlock>
+<SplineGeometry>
+<Point X="1055" Y="426"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S3" Target="S6">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V2"/>
+</IndexedIdentifier>
+</LabelBlock>
+</Edge>
+<Edge Source="S5" Target="S0">
+<LabelBlock>
+<SimpleIdentifier Name="close"/>
+</LabelBlock>
+<SplineGeometry>
+<Point X="886" Y="353"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S0" Target="S0">
+<LabelBlock>
+<SimpleIdentifier Name="open"/>
+<SimpleIdentifier Name="close"/>
+</LabelBlock>
+</Edge>
+<Edge Source="S2" Target="S8">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V4"/>
+</IndexedIdentifier>
+</LabelBlock>
+</Edge>
+<Edge Source="S4" Target="S7">
+<LabelBlock>
+<IndexedIdentifier Name="open">
+<SimpleIdentifier Name="V3"/>
+</IndexedIdentifier>
+<LabelGeometry Anchor="NW">
+<Point X="-1" Y="7"/>
+</LabelGeometry>
+</LabelBlock>
+</Edge>
+<Edge Source="S8" Target="S0">
+<LabelBlock>
+<SimpleIdentifier Name="close"/>
+</LabelBlock>
+<SplineGeometry>
+<Point X="785" Y="515"/>
+</SplineGeometry>
+</Edge>
+<Edge Source="S7" Target="S0">
+<LabelBlock>
+<SimpleIdentifier Name="close"/>
+</LabelBlock>
+<SplineGeometry>
+<Point X="947" Y="586"/>
+</SplineGeometry>
+</Edge>
+</EdgeList>
+</Graph>
+</SimpleComponent>
+</ComponentList>
+</Module>
