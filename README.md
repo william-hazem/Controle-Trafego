@@ -16,9 +16,11 @@ Este projeto visa desenvolver um sistema de controle de tráfego para um cruzame
 ## Especificações de Controle
 
 - Evitar colisão dos veículos permitindo a travessia em três direções (direita, reto e esquerda), garantindo que apenas um dos sinais abra por vez.
-- Evitar a colisão com pedestres, garantindo que os sinais de tráfego para veículos (S1, S2, S3 e S4) estejam simultaneamente fechados durante o tráfego dos pedestres.
+- Evitar a colisão com pedestres, garantindo que os sinais de tráfego para veículos estejam simultaneamente fechados durante o tráfego dos pedestres.
 - Reduzir o tempo de espera dos pedestres dando prioridade para a sua circulação quando necessário.
 - Se detectados veículos de emergência, o sistema precisa conceder-lhes passagem na via em que eles se encontram, interrompendo o ciclo regular de funcionamento dos semáforos caso necessário.
+
+![Esquema do Cruzamento](https://github.com/william-hazem/Controle-Trafego/assets/80481653/eb6179ea-c1b7-4661-8080-bf4db7e10ff5)
 
 ## Equipe
 
