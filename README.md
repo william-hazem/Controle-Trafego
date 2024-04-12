@@ -20,7 +20,6 @@ Este projeto visa desenvolver um sistema de controle de tráfego para um cruzame
 - Reduzir o tempo de espera dos pedestres dando prioridade para a sua circulação quando necessário.
 - Se detectados veículos de emergência, o sistema precisa conceder-lhes passagem na via em que eles se encontram, interrompendo o ciclo regular de funcionamento dos semáforos caso necessário.
 
-![Esquema do Cruzamento](https://github.com/william-hazem/Controle-Trafego/blob/main/EsquemaCruzamento.png)
 ![Esquema do Cruzamento](https://github.com/william-hazem/Controle-Trafego/assets/80481653/eb6179ea-c1b7-4661-8080-bf4db7e10ff5)
 
 
