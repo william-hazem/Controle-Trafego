@@ -28,3 +28,7 @@ Este projeto visa desenvolver um sistema de controle de tráfego para um cruzame
 - [Julia Ramalho](https://github.com/ramalhocsjulia)
 - [Samara Cardoso](https://github.com/SamaraLimaCardoso)
 - [William Henrique](https://github.com/william-hazem)
+
+## Vídeo Demonstrativo
+
+[Vídeo demonstrativo no YouTube](https://youtu.be/lTDTqDFmZQU)
