@@ -13,7 +13,7 @@ Este projeto visa desenvolver um sistema de controle de tráfego para um cruzame
 - Deve haver uma lógica de controle que priorize a segurança e a eficiência, evitando colisões e minimizando o tempo de espera.
 - O sistema deve ser capaz de adaptar-se a diferentes fluxos de tráfego, considerando horários de pico.
 
-### Especificações de Controle
+## Especificações de Controle
 
 - Evitar colisão dos veículos permitindo a travessia em três direções (direita, reto e esquerda), garantindo que apenas um dos sinais abra por vez.
 - Evitar a colisão com pedestres, garantindo que os sinais de tráfego para veículos (S1, S2, S3 e S4) estejam simultaneamente fechados durante o tráfego dos pedestres.
